@@ -18,6 +18,8 @@
         var dataStr = '';
         var dataLine = '';
         var gpQquarter1 = $('#gp-quarter-1').find('tbody tr');
+        var initMemeber = ['Richard Jefferson', 'LeBron James', 'Tristan Thompson', 'Kyrie Irving', 'Iman Shumpert',
+            'Aaron Gordon', 'Terrence Ross', 'Nikola Vucevic', 'Elfrid Payton', 'Evan Fournier'];
 
         var cavaliersMembers = ['LeBron James', 'Kyrie Irving', 'Kevin Love', 'Kyle Korver', 'Channing Frye', 'J.R. Smith', 'Derrick Williams',
             'Tristan Thompson', 'Iman Shumpert', 'Deron Williams', 'Richard Jefferson', 'Mike Dunleavy', 'Jordan McRae', 'Kay Felder',
@@ -31,46 +33,52 @@
             'offensive team rebound', 'assists', 'traveling', 'blocks', 'official timeout', 'full timeout', 'offensive Charge',
             'shooting foul', 'personal foul', 'shooting block foul', 'lost ball', 'bad pass', 'steals'];
 
-        // var orl cle
-
         for (var i = 0; i < gpQquarter1.length; i++) {
-            // Add moment
+            // 1. Add moment
             dataLine += $($(gpQquarter1[i]).find('td')[0]).html() + ';';
 
 
             if ($($(gpQquarter1[i]).find('td')[1]).find('img').attr('src').indexOf('orl') > -1) {
-                // Add actions
+                // 2. Add actions
                 dataLine += actionsFilter(actions, $($(gpQquarter1[i]).find('td')[2]).html()) + ';';
-                // Add the certain action actor = player
+                // 3. Add the certain action actor = player
                 dataLine += playersFilter(magicMembers, $($(gpQquarter1[i]).find('td')[2]).html()) + ';';
-                // Add player home
+                // 4. Add player home
                 dataLine += 'Magic' + ';';
-                // Add score
-                dataLine += $($(gpQquarter1[i]).find('td')[3]).html();
+                // 5. Add score
+                dataLine += $($(gpQquarter1[i]).find('td')[3]).html() + ';';
             }
 
             if ($($(gpQquarter1[i]).find('td')[1]).find('img').attr('src').indexOf('cle') > -1) {
-                // Add actions
+                // 2. Add actions
                 dataLine += actionsFilter(actions, $($(gpQquarter1[i]).find('td')[2]).html()) + ';';
-                // Add the certain action actor = player
+                // 3. Add the certain action actor = player
                 dataLine += playersFilter(cavaliersMembers, $($(gpQquarter1[i]).find('td')[2]).html()) + ';';
-
-                // Add player home
-                dataLine += $($(gpQquarter1[i]).find('td')[3]).html();
+                // 4. Add player home
+                dataLine += 'Cavaliers' + ';';
+                // 5. Add score
+                dataLine += $($(gpQquarter1[i]).find('td')[3]).html() + ';';
             }
 
-
-            // dataLine = $($(gpQquarter1[i]).find('td')[0]).html() + ';' + $($(gpQquarter1[i]).find('td')[2]).html() + ';'
-            //     + $($(gpQquarter1[i]).find('td')[3]).html() + '\n';
-
-
+            // 6. Add players who on the ground
+            if ($($(gpQquarter1[i]).find('td')[2]).html().indexOf('enters the game for') > -1) {
+                var memberTempArr = _.split($($(gpQquarter1[i]).find('td')[2]).html(), 'enters the game for', 2);
+                for (var j = 0; j < initMemeber.length; j++) {
+                    if (initMemeber[j] == _.trim(memberTempArr[1]))
+                        initMemeber[j] = _.trim(memberTempArr[0])
+                }
+                console.log('#' + memberTempArr[0] + '# enters the game for #' + memberTempArr[1] + '#');
+                dataLine += initMemeber.toString();;
+            } else {
+                dataLine += initMemeber.toString();
+            }
 
             // Append to the last line
             dataStr += dataLine + '\n';
             dataLine = '';
         }
         console.log('data========================================================start');
-        console.log(dataStr);
+        // console.log(dataStr);
         console.log('data========================================================ending');
 
         fs.writeFile('data.csv', dataStr, (err) => {
