@@ -44,7 +44,9 @@
                 // Add the certain action actor = player
                 dataLine += playersFilter(magicMembers, $($(gpQquarter1[i]).find('td')[2]).html()) + ';';
                 // Add player home
-                dataLine += 'Magic';
+                dataLine += 'Magic' + ';';
+                // Add score
+                dataLine += $($(gpQquarter1[i]).find('td')[3]).html();
             }
 
             if ($($(gpQquarter1[i]).find('td')[1]).find('img').attr('src').indexOf('cle') > -1) {
@@ -54,7 +56,7 @@
                 dataLine += playersFilter(cavaliersMembers, $($(gpQquarter1[i]).find('td')[2]).html()) + ';';
 
                 // Add player home
-                dataLine += 'Cavaliers';
+                dataLine += $($(gpQquarter1[i]).find('td')[3]).html();
             }
 
 
