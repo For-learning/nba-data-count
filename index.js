@@ -37,28 +37,28 @@
         for (var i = 0; i < gpQquarter.length; i++) {
             var dataArr = $(gpQquarter[i]).find('td'); // All data will store to this array
             // 1. Add moment
-            dataLine += $(dataArr[0]).html() + ';';
+            dataLine += $(dataArr[0]).html() + ',';
 
             if ($(dataArr[1]).find('img').attr('src').indexOf('orl') > -1) {
                 // 2. Add actions
-                dataLine += actionsFilter(actions, $(dataArr[2]).html()) + ';';
+                dataLine += actionsFilter(actions, $(dataArr[2]).html()) + ',';
                 // 3. Add the certain action actor = player
-                dataLine += playersFilter(magicMembers, $(dataArr[2]).html()) + ';';
+                dataLine += playersFilter(magicMembers, $(dataArr[2]).html()) + ',';
                 // 4. Add player home
-                dataLine += 'Magic' + ';';
+                dataLine += 'Magic' + ',';
                 // 5. Add score
-                dataLine += $(dataArr[3]).html() + ';';
+                dataLine += '@' + $(dataArr[3]).html() + ',';
             }
 
             if ($(dataArr[1]).find('img').attr('src').indexOf('cle') > -1) {
                 // 2. Add actions
-                dataLine += actionsFilter(actions, $(dataArr[2]).html()) + ';';
+                dataLine += actionsFilter(actions, $(dataArr[2]).html()) + ',';
                 // 3. Add the certain action actor = player
-                dataLine += playersFilter(cavaliersMembers, $(dataArr[2]).html()) + ';';
+                dataLine += playersFilter(cavaliersMembers, $(dataArr[2]).html()) + ',';
                 // 4. Add player home
-                dataLine += 'Cavaliers' + ';';
+                dataLine += 'Cavaliers' + ',';
                 // 5. Add score
-                dataLine += $(dataArr[3]).html() + ';';
+                dataLine += '@' + $(dataArr[3]).html() + ',';
             }
 
             // 6. Add players who on the ground
@@ -69,9 +69,9 @@
                         initMemeber[j] = _.trim(memberTempArr[0])
                 }
                 console.log('#' + memberTempArr[0] + '# enters the game for #' + memberTempArr[1] + '#');
-                dataLine += initMemeber.toString();;
+                dataLine += initMemeber.toString(';');;
             } else {
-                dataLine += initMemeber.toString();
+                dataLine += initMemeber.toString(';');
             }
 
             // Append to the last line
